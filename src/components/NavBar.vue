@@ -5,11 +5,10 @@ import { RouterLink } from 'vue-router'
 <template>
   <header id="header" class="col header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>Cherit<span>.</span></h1>
-      </a>
+      <RouterLink to="/" class="logo d-flex align-items-center me-auto me-lg-0">
+        <img src="/icons/icon-72x72.png" alt="" />
+        <h1>Cherit</h1>
+      </RouterLink>
 
       <nav id="navbar" class="navbar">
         <ul>
@@ -21,7 +20,7 @@ import { RouterLink } from 'vue-router'
       </nav>
       <!-- .navbar -->
 
-      <a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
+      <RouterLink class="btn-book-a-table" to="/shoppingCart">Shopping cart</RouterLink>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
     </div>

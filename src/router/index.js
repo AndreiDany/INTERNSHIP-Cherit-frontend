@@ -9,21 +9,26 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    // {
-    //   path: "/about",
-    //   name: "about",
-    //   component: () => import("../views/AboutView.vue"),
-    // },
+    {
+      path: "/about",
+      name: "about",
+      component: () => import("../views/AboutView.vue"),
+    },
     {
       path: "/menu",
       name: "menu",
       component: () => import("../views/MenuView.vue"),
     },
-    // {
-    //   path: "/contact",
-    //   name: "contact",
-    //   component: () => import("../views/ContactView.vue"),
-    // }
+    {
+      path: "/contact",
+      name: "contact",
+      component: () => import("../views/ContactView.vue"),
+    },
+    {
+      path: "/shoppingCart",
+      name: "shoppingCart",
+      component: () => import("../views/ShoppingCartView.vue"),
+    },
   ]
 })
 
