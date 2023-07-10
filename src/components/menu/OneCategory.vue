@@ -20,19 +20,17 @@ onMounted(() => {
   })
 })
 
-watch(() => props.id, () => {
-  axios({
-    method: 'get',
-    url: 'http://cherit.test/products/' + props.id
-  }).then((response) => {
-    allProducts.value = response.data.slice()
-  })
-  console.log('hdfgbdf');
-})
-
-// watch(categoryId, (newcategoryId) => {
-//   console.log(`categoryId is ${newcategoryId}`)
-// })
+watch(
+  () => props.id,
+  () => {
+    axios({
+      method: 'get',
+      url: 'http://cherit.test/products/' + props.id
+    }).then((response) => {
+      allProducts.value = response.data.slice()
+    })
+  }
+)
 </script>
 
 <template>
@@ -45,6 +43,7 @@ watch(() => props.id, () => {
       <OneProduct
         v-for="product in allProducts"
         :key="product.id"
+        :id="product.id"
         :name="product.name"
         :price="product.price"
         :description="product.description"

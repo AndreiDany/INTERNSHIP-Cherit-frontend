@@ -1,8 +1,11 @@
 <script setup>
+import { useShoppingCartStore } from "../../stores/shoppingCart";
+
+const shoppingCartStore = useShoppingCartStore();
+
 //import axios from 'axios';
 
-//const props =
-defineProps(['name', 'price', 'description', 'image'])
+const props = defineProps(['id', 'name', 'price', 'description', 'image'])
 
 // async function deleteProduct() {
 //   axios({
@@ -20,6 +23,31 @@ function getImageUrl(image) {
 
   return `${baseUrl}${image}`
 }
+
+//adaugarea unui produs in cos
+function addProduct() {
+  let cartProducts = JSON.parse(localStorage.getItem('cartProducts'))
+
+  cartProducts.push({
+    id: props.id,
+    quantity: 1
+  })
+
+  localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+  
+  shoppingCartStore.shoppingCart = cartProducts;
+
+  //console.log(shoppingCartStore.shoppingCart)
+
+  let total = localStorage.getItem('total');
+
+  total = Number(total) + Number(props.price);
+
+  localStorage.setItem('total', total);
+
+  shoppingCartStore.total = total;
+
+}
 </script>
 <template>
   <div class="col-lg-4 menu-item">
@@ -33,7 +61,7 @@ function getImageUrl(image) {
     <h4>{{ name }}</h4>
     <p class="ingredients">Lorem, deren, trataro, filede, nerada</p>
     <p class="price">${{ price }}</p>
-    <button class="btn btn-danger">Add to cart</button>
+    <button class="btn btn-danger" @click="addProduct()">Add to cart</button>
   </div>
   <!-- Menu Item -->
 </template>

@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import ShoppingCart from './ShoppingCart.vue'
 </script>
 
 <template>
@@ -20,7 +21,20 @@ import { RouterLink } from 'vue-router'
       </nav>
       <!-- .navbar -->
 
-      <RouterLink class="btn-book-a-table" to="/shoppingCart">Shopping cart</RouterLink>
+      <!-- Button for modal shopping cart -->
+      <button
+        class="btn-book-a-table"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#ShoppingCart"
+        aria-controls="offcanvasWithBothOptions"
+      >
+      Shopping cart
+      </button>
+
+      <!-- shopping cart modal -->
+      <ShoppingCart></ShoppingCart>
+
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
     </div>
