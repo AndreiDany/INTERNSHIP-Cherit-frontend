@@ -17,6 +17,13 @@ import ShoppingCart from './ShoppingCart.vue'
           <li><RouterLink to="/about">About</RouterLink></li>
           <li><RouterLink to="/menu">Menu</RouterLink></li>
           <li><RouterLink to="/contact">Contact</RouterLink></li>
+          <li class="dropdown">
+            <a href="#"><span>Account</span><i class="bi bi-person fs-6 fst-normal"></i></a>
+            <ul>
+              <li><a href="#">Register</a></li>
+              <li><a href="#">Login</a></li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <!-- .navbar -->
@@ -29,7 +36,7 @@ import ShoppingCart from './ShoppingCart.vue'
         data-bs-target="#ShoppingCart"
         aria-controls="offcanvasWithBothOptions"
       >
-      Shopping cart
+        Shopping cart
       </button>
 
       <!-- shopping cart modal -->

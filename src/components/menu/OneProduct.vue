@@ -1,21 +1,10 @@
 <script setup>
-import { useShoppingCartStore } from "../../stores/shoppingCart";
-
-const shoppingCartStore = useShoppingCartStore();
-
+import { useShoppingCartStore } from '../../stores/shoppingCart'
 //import axios from 'axios';
 
-const props = defineProps(['id', 'name', 'price', 'description', 'image'])
+const shoppingCartStore = useShoppingCartStore()
 
-// async function deleteProduct() {
-//   axios({
-//     method: 'delete',
-//     url: '...',
-//     data: {
-//       name: props.name
-//     }
-//   });
-// }
+const props = defineProps(['id', 'name', 'price', 'description', 'image'])
 
 // extragerea imaginii din laravel
 function getImageUrl(image) {
@@ -26,29 +15,24 @@ function getImageUrl(image) {
 
 //adaugarea unui produs in cos
 function addProduct() {
-  let cartProducts = JSON.parse(localStorage.getItem('cartProducts'))
-
-  cartProducts.push({
+  shoppingCartStore.updateShoppingCart({
     id: props.id,
     quantity: 1
-  })
-
-  localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
-  
-  shoppingCartStore.shoppingCart = cartProducts;
-
-  //console.log(shoppingCartStore.shoppingCart)
-
-  let total = localStorage.getItem('total');
-
-  total = Number(total) + Number(props.price);
-
-  localStorage.setItem('total', total);
-
-  shoppingCartStore.total = total;
-
+  });
+  shoppingCartStore.addToTotal(props.price);
 }
+
+// async function deleteProduct() {
+//   axios({
+//     method: 'delete',
+//     url: '...',
+//     data: {
+//       name: props.name
+//     }
+//   });
+// }
 </script>
+
 <template>
   <div class="col-lg-4 menu-item">
     <a href="assets/img/menu/menu-item-1.png" class="glightbox"
