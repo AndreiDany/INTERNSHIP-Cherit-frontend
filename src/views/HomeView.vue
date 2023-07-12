@@ -15,7 +15,7 @@
           </p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
             <RouterLink to="/menu" class="btn-book-a-table">Meniu</RouterLink>
-            <a href="#" class="glightbox btn-watch-video d-flex align-items-center"
+            <a href="#" class="btn-watch-video d-flex align-items-center"
               ><i class="bi bi-play-circle"></i><span>Watch Video</span></a
             >
           </div>

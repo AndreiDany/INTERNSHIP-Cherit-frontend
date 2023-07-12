@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import CartProduct from './CartProduct.vue'
 import { useShoppingCartStore } from '../stores/shoppingCart'
 
@@ -24,7 +25,10 @@ const shoppingCartStore = useShoppingCartStore()
     </div>
     <div class="offcanvas-body">
       <div>
-        <h5 class="fw-bold mb-3">Total: ${{shoppingCartStore.total}}</h5>
+        <h5 class="fw-bold mb-3">Total: ${{ shoppingCartStore.total }}</h5>
+      </div>
+      <div class="mb-3">
+        <RouterLink class="btn btn-outline-dark" to="/sendOrder">Send order</RouterLink>
       </div>
       <div class="gy-4">
         <CartProduct
@@ -33,6 +37,9 @@ const shoppingCartStore = useShoppingCartStore()
           :id="product.id"
           :quantity="product.quantity"
         />
+      </div>
+      <div>
+        <RouterLink class="btn btn-outline-dark" to="/sendOrder">Send order</RouterLink>
       </div>
     </div>
   </div>

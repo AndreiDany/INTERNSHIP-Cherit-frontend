@@ -20,8 +20,8 @@ import ShoppingCart from './ShoppingCart.vue'
           <li class="dropdown">
             <a href="#"><span>Account</span><i class="bi bi-person fs-6 fst-normal"></i></a>
             <ul>
-              <li><a href="#">Register</a></li>
-              <li><a href="#">Login</a></li>
+              <li><RouterLink to="/login" >Login</RouterLink></li>
+              <li><RouterLink to="/register" >Register</RouterLink></li>
             </ul>
           </li>
         </ul>
@@ -30,7 +30,7 @@ import ShoppingCart from './ShoppingCart.vue'
 
       <!-- Button for modal shopping cart -->
       <button
-        class="btn-book-a-table"
+        class="btn-book-a-table border-0"
         type="button"
         data-bs-toggle="offcanvas"
         data-bs-target="#ShoppingCart"

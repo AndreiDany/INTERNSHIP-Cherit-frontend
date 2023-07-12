@@ -26,7 +26,7 @@ function ChangeCategory(id, name) {
 
 <template>
   <!-- ======= Menu Section ======= -->
-  <section id="menu" class="menu">
+  <section id="menu" class="col menu">
     <div class="container" data-aos="fade-up">
       <div class="section-header">
         <h2 class="mt-2">Our Menu</h2>
