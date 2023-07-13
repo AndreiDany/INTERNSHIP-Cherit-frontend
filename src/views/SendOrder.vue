@@ -16,7 +16,7 @@ async function sendOrder() {
   //   clientId: clientStore.clientId,
   //   address: address.value,
   //   price: shoppingCartStore.total,
-  //   product: shoppingCartStore.shoppingCart
+  //   products: shoppingCartStore.shoppingCart
   // })
 
   await axios
@@ -24,7 +24,7 @@ async function sendOrder() {
       clientId: clientStore.clientId,
       address: address.value,
       price: shoppingCartStore.total,
-      product: shoppingCartStore.shoppingCart,
+      products: shoppingCartStore.shoppingCart,
     })
     .then(function (response) {
       console.log(response);
