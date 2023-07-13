@@ -1,23 +1,23 @@
 <script setup>
-import { useShoppingCartStore } from '../../stores/shoppingCart'
+import { useShoppingCartStore } from "../../stores/shoppingCart";
 //import axios from 'axios';
 
-const shoppingCartStore = useShoppingCartStore()
+const shoppingCartStore = useShoppingCartStore();
 
-const props = defineProps(['id', 'name', 'price', 'description', 'image'])
+const props = defineProps(["id", "name", "price", "description", "image"]);
 
 // extragerea imaginii din laravel
 function getImageUrl(image) {
-  const baseUrl = 'http://cherit.test/img/'
+  const baseUrl = "http://cherit.test/img/";
 
-  return `${baseUrl}${image}`
+  return `${baseUrl}${image}`;
 }
 
 //adaugarea unui produs in cos
 function addProduct() {
   shoppingCartStore.updateShoppingCart({
     id: props.id,
-    quantity: 1
+    quantity: 1,
   });
   shoppingCartStore.addToTotal(props.price);
 }

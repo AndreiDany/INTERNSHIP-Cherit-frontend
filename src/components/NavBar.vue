@@ -1,6 +1,10 @@
 <script setup>
-import { RouterLink } from 'vue-router'
-import ShoppingCart from './ShoppingCart.vue'
+import { RouterLink } from "vue-router";
+import ShoppingCart from "./shoppingCart/ShoppingCart.vue";
+
+import { useClientStore } from "../stores/clientStore.js";
+
+const clientStore = useClientStore();
 </script>
 
 <template>
@@ -18,10 +22,14 @@ import ShoppingCart from './ShoppingCart.vue'
           <li><RouterLink to="/menu">Menu</RouterLink></li>
           <li><RouterLink to="/contact">Contact</RouterLink></li>
           <li class="dropdown">
-            <a href="#"><span>Account</span><i class="bi bi-person fs-6 fst-normal"></i></a>
+            <a href="#"
+              ><span>Account</span><i class="bi bi-person fs-6 fst-normal"></i
+            ></a>
             <ul>
-              <li><RouterLink to="/login" >Login</RouterLink></li>
-              <li><RouterLink to="/register" >Register</RouterLink></li>
+              <li v-if="clientStore.clientId==0"><RouterLink to="/login">Login</RouterLink></li>
+              <li v-if="clientStore.clientId==0"><RouterLink to="/register">Register</RouterLink></li>
+              <li v-if="clientStore.clientId!=0"><p class="ms-3 mt-2">{{clientStore.clientId}} Andrei Daniel</p></li>
+              <li v-if="clientStore.clientId!=0"><RouterLink to="/login">Logout</RouterLink></li>
             </ul>
           </li>
         </ul>

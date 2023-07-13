@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
-import { useShoppingCartStore } from '../stores/shoppingCart.js'
+import { useShoppingCartStore } from '../../stores/shoppingCart'
 
 const props = defineProps(['id', 'quantity'])
 

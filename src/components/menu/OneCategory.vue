@@ -1,36 +1,36 @@
 <script setup>
-import OneProduct from './OneProduct.vue'
+import OneProduct from "./OneProduct.vue";
 
-import { ref } from 'vue'
+import { ref } from "vue";
 
-import { onMounted } from 'vue'
-import { watch } from 'vue'
-import axios from 'axios'
+import { onMounted } from "vue";
+import { watch } from "vue";
+import axios from "axios";
 
-const props = defineProps(['id', 'name'])
+const props = defineProps(["id", "name"]);
 
-const allProducts = ref([])
+const allProducts = ref([]);
 
 onMounted(() => {
   axios({
-    method: 'get',
-    url: 'http://cherit.test/products/' + props.id
-  }).then((response) => {
-    allProducts.value = response.data.slice()
-  })
-})
+    method: "get",
+    url: "http://cherit.test/products/" + props.id,
+  }).then(response => {
+    allProducts.value = response.data.slice();
+  });
+});
 
 watch(
   () => props.id,
   () => {
     axios({
-      method: 'get',
-      url: 'http://cherit.test/products/' + props.id
-    }).then((response) => {
-      allProducts.value = response.data.slice()
-    })
+      method: "get",
+      url: "http://cherit.test/products/" + props.id,
+    }).then(response => {
+      allProducts.value = response.data.slice();
+    });
   }
-)
+);
 </script>
 
 <template>
