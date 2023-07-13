@@ -1,30 +1,37 @@
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-import { useShoppingCartStore } from '../stores/shoppingCart'
-import { useClientStore } from '../stores/clientStore.js'
+import { ref } from "vue";
+import axios from "axios";
+import { useShoppingCartStore } from "../stores/shoppingCart";
+import { useClientStore } from "../stores/clientStore.js";
 
-const shoppingCartStore = useShoppingCartStore()
-const clientStore = useClientStore()
+const shoppingCartStore = useShoppingCartStore();
+const clientStore = useClientStore();
 
-const address = ref('')
+const address = ref("");
 
 async function sendOrder() {
-  clientStore.setClient(1)
+  clientStore.setClient(1);
 
-  console.log({
-    clientId: clientStore.clientId,
-    address: address.value,
-    price: shoppingCartStore.total,
-    product: shoppingCartStore.shoppingCart
-  })
+  // console.log({
+  //   clientId: clientStore.clientId,
+  //   address: address.value,
+  //   price: shoppingCartStore.total,
+  //   product: shoppingCartStore.shoppingCart
+  // })
 
-  await axios.post('http://cherit.test/send-order', {
-    clientId: clientStore.clientId,
-    address: address.value,
-    price: shoppingCartStore.total,
-    product: shoppingCartStore.shoppingCart
-  })
+  await axios
+    .post("http://cherit.test/send-order", {
+      clientId: clientStore.clientId,
+      address: address.value,
+      price: shoppingCartStore.total,
+      product: shoppingCartStore.shoppingCart,
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 </script>
 <template>
@@ -56,17 +63,32 @@ async function sendOrder() {
         </div>
 
         <div class="row">
-          <div class="col d-flex justify-content-center align-items-center flex-column">
+          <div
+            class="col d-flex justify-content-center align-items-center flex-column"
+          >
             <div class="form-check">
               <div class="d-flex align-items-center">
-                <input id="flexRadioDefault1" type="radio" name="flexRadioDefault" />
-                <label class="form-check-label" for="flexRadioDefault1"> &nbsp;&nbsp;Cash </label>
+                <input
+                  id="flexRadioDefault1"
+                  type="radio"
+                  name="flexRadioDefault"
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  &nbsp;&nbsp;Cash
+                </label>
               </div>
             </div>
             <div class="form-check">
               <div class="d-flex align-items-center">
-                <input id="flexRadioDefault2" type="radio" name="flexRadioDefault" checked />
-                <label class="form-check-label" for="flexRadioDefault2"> &nbsp;&nbsp;Card </label>
+                <input
+                  id="flexRadioDefault2"
+                  type="radio"
+                  name="flexRadioDefault"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  &nbsp;&nbsp;Card
+                </label>
               </div>
             </div>
           </div>

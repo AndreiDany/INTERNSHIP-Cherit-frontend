@@ -1,12 +1,12 @@
 <script setup>
 //Template Main JS File
-import './assets/js/main.js'
+import "./assets/js/main.js";
 
-import '../node_modules/bootstrap/dist/js/bootstrap.js'
+import "../node_modules/bootstrap/dist/js/bootstrap.js";
 
-import { RouterView } from 'vue-router'
-import NavBar from './components/NavBar.vue'
-import Footer from './components/TheFooter.vue'
+import { RouterView } from "vue-router";
+import NavBar from "./components/NavBar.vue";
+import Footer from "./components/TheFooter.vue";
 </script>
 
 <template>
@@ -24,11 +24,11 @@ import Footer from './components/TheFooter.vue'
 </template>
 
 <style setup>
-@import 'bootstrap/dist/css/bootstrap.css';
-@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "bootstrap/dist/css/bootstrap.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
 
 /*Template Main CSS File*/
-@import './assets/css/main.css';
+@import "./assets/css/main.css";
 
 /* Vendor CSS Files
 @import "./assets/vendor/aos/aos.css";

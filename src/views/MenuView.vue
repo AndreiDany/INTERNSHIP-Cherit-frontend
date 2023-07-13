@@ -1,26 +1,26 @@
 <script setup>
-import OneCategory from '../components/menu/OneCategory.vue'
+import OneCategory from "../components/menu/OneCategory.vue";
 
-import { ref } from 'vue'
-import { onMounted } from 'vue'
-import axios from 'axios'
+import { ref } from "vue";
+import { onMounted } from "vue";
+import axios from "axios";
 
-const allCategory = ref([])
-const categoryId = ref(1)
-const categoryName = ref('pizza')
+const allCategory = ref([]);
+const categoryId = ref(1);
+const categoryName = ref("pizza");
 
 onMounted(() => {
   axios({
-    method: 'get',
-    url: 'http://cherit.test/category'
-  }).then((response) => {
-    allCategory.value = response.data.slice()
-  })
-})
+    method: "get",
+    url: "http://cherit.test/category",
+  }).then(response => {
+    allCategory.value = response.data.slice();
+  });
+});
 
 function ChangeCategory(id, name) {
-  categoryId.value = id
-  categoryName.value = name
+  categoryId.value = id;
+  categoryName.value = name;
 }
 </script>
 
@@ -45,7 +45,11 @@ function ChangeCategory(id, name) {
           class="nav-item"
           @click="ChangeCategory(category.id, category.name)"
         >
-          <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-starters">
+          <a
+            class="nav-link active show"
+            data-bs-toggle="tab"
+            data-bs-target="#menu-starters"
+          >
             <h4>{{ category.name }}</h4>
           </a>
         </li>
