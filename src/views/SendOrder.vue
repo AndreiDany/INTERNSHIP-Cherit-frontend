@@ -10,8 +10,6 @@ const clientStore = useClientStore();
 const address = ref("");
 
 async function sendOrder() {
-  clientStore.setClient(1);
-
   // console.log({
   //   clientId: clientStore.clientId,
   //   address: address.value,
