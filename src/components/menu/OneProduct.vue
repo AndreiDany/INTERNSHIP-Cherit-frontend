@@ -8,7 +8,7 @@ const props = defineProps(["id", "name", "price", "description", "image"]);
 
 // extragerea imaginii din laravel
 function getImageUrl(image) {
-  const baseUrl = "http://cherit.test/img/";
+  const baseUrl = "http://cherit3.test/img/";
 
   return `${baseUrl}${image}`;
 }

@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
           <img
-            src="http://cherit.test/img/aluat.jpg"
+            src="http://cherit3.test/img/aluat.jpg"
             class="img-fluid rounded border border-grey border-3"
             alt="Home image"
             data-aos="zoom-out"

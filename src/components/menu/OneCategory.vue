@@ -14,7 +14,7 @@ const allProducts = ref([]);
 onMounted(() => {
   axios({
     method: "get",
-    url: "http://cherit.test/products/" + props.id,
+    url: "http://cherit3.test/products/" + props.id,
   }).then(response => {
     allProducts.value = response.data.slice();
   });
@@ -25,7 +25,7 @@ watch(
   () => {
     axios({
       method: "get",
-      url: "http://cherit.test/products/" + props.id,
+      url: "http://cherit3.test/products/" + props.id,
     }).then(response => {
       allProducts.value = response.data.slice();
     });

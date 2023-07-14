@@ -20,7 +20,7 @@ async function sendOrder() {
   // })
 
   await axios
-    .post("http://cherit.test/send-order", {
+    .post("http://cherit3.test/send-order", {
       clientId: clientStore.clientId,
       address: address.value,
       price: shoppingCartStore.total,

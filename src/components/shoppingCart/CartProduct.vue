@@ -12,7 +12,7 @@ const product = ref([])
 onMounted(() => {
   axios({
     method: 'get',
-    url: 'http://cherit.test/product/' + props.id
+    url: 'http://cherit3.test/product/' + props.id
   }).then((response) => {
     product.value = response.data.slice()
   })
@@ -20,7 +20,7 @@ onMounted(() => {
 
 // extragerea imaginii din laravel
 function getImageUrl(image) {
-  const baseUrl = 'http://cherit.test/img/'
+  const baseUrl = 'http://cherit3.test/img/'
 
   return `${baseUrl}${image}`
 }

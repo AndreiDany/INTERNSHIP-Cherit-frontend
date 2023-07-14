@@ -12,7 +12,7 @@ const categoryName = ref("pizza");
 onMounted(() => {
   axios({
     method: "get",
-    url: "http://cherit.test/category",
+    url: "http://cherit3.test/category",
   }).then(response => {
     allCategory.value = response.data.slice();
   });

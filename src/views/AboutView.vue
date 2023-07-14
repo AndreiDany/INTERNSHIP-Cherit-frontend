@@ -11,7 +11,7 @@
         <div
           class="col-lg-7 position-relative about-img"
           style="
-            background-image: url(http://cherit.test/img/mancare.jfif);
+            background-image: url(http://cherit3.test/img/mancare.jfif);
             background-size: cover;
             background-position: center;
           "
@@ -57,7 +57,7 @@
             </p>
             <div class="position-relative mt-4">
               <img
-                src="http://cherit.test/img/aluat.jpg"
+                src="http://cherit3.test/img/aluat.jpg"
                 class="img-fluid"
                 alt="Cook image"
               />
