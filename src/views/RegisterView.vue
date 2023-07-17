@@ -6,31 +6,30 @@ const name = ref("");
 const email = ref("");
 const password = ref("");
 const cPassword = ref("");
-const message = ref("Datele din formular sunt incorecte!");
+const message = ref("");
 
 async function register() {
-  if (email.value != "" && password.value != "") {
-    await axios
-      .post("http://cherit3.test/register", {
-        name: name.value,
-        email: email.value,
-        password: password.value,
-        c_password: cPassword.value,
-      })
-      .then(function (response) {
-        console.log(response.data);
+  await axios
+    .post("http://cherit3.test/register", {
+      name: name.value,
+      email: email.value,
+      password: password.value,
+      c_password: cPassword.value,
+    })
+    .then(function (response) {
+      console.log(response.data);
 
-        if (response.data.message == "error") {
-          message.value = "Datele din formular sunt incorecte!";
-        } else {
-          message.value = "Client inregistrat cu succes!";
-        }
-      })
+      if (response.data.message == "error") {
+        message.value = "Datele din formular sunt incorecte!";
+      } else {
+        message.value = "Client inregistrat cu succes!";
+      }
+    })
 
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+    .catch(function (error) {
+      console.log(error);
+      message.value = "Datele din formular sunt incorecte!";
+    });
 }
 </script>
 
@@ -107,7 +106,7 @@ async function register() {
           <button
             class="btn btn-danger"
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            data-bs-target="#registerModal"
             @click="register()"
           >
             Register
@@ -117,7 +116,7 @@ async function register() {
       <!-- Modal -->
       <div
         class="modal fade"
-        id="exampleModal"
+        id="registerModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"

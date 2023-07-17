@@ -7,31 +7,30 @@ const clientStore = useClientStore();
 
 const email = ref("");
 const password = ref("");
-const message = ref("Email sau parola incorecta!");
+const message = ref("");
 
 async function login() {
-  if (email.value != "" && password.value != "") {
-    await axios
-      .post("http://cherit3.test/login", {
-        email: email.value,
-        password: password.value,
-      })
-      .then(function (response) {
-        console.log(response.data);
+  await axios
+    .post("http://cherit3.test/login", {
+      email: email.value,
+      password: password.value,
+    })
+    .then(function (response) {
+      console.log(response.data);
 
-        if (response.data.message == "error") {
-          message.value = "Email sau parola incorecta!";
-        } else {
-          clientStore.setClient(response.data.id);
-          clientStore.setClientName(response.data.name);
-          message.value = "Bun venit " + response.data.name + "!";
-        }
-      })
+      if (response.data.message == "error") {
+        message.value = "Email sau parola incorecta!";
+      } else {
+        clientStore.setClient(response.data.id);
+        clientStore.setClientName(response.data.name);
+        message.value = "Bun venit " + response.data.name + "!";
+      }
+    })
 
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+    .catch(function (error) {
+      console.log(error);
+      message.value = "Email sau parola incorecta!";
+    });
 }
 </script>
 <template>
@@ -75,7 +74,7 @@ async function login() {
           <button
             class="btn btn-danger"
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            data-bs-target="#loginModal"
             @click="login()"
           >
             Login
@@ -86,7 +85,7 @@ async function login() {
       <!-- Modal -->
       <div
         class="modal fade"
-        id="exampleModal"
+        id="loginModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"

@@ -34,12 +34,17 @@ const clientStore = useClientStore();
               </li>
               <li v-if="clientStore.clientId != 0">
                 <p class="ms-3 mt-2">
-                  {{ clientStore.clientId }} {{ clientStore.clientName }}
+                  {{ clientStore.clientName }}
                 </p>
               </li>
               <li v-if="clientStore.clientId != 0">
-                <RouterLink @click="clientStore.clientId = 0" to="/login"
+                <RouterLink @click="clientStore.setClient(0)" to="/"
                   >Logout</RouterLink
+                >
+              </li>
+              <li v-if="clientStore.clientId != 0">
+                <RouterLink to="/orderHistory"
+                  >Order History</RouterLink
                 >
               </li>
             </ul>
