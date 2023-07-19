@@ -18,13 +18,10 @@ async function login() {
     .then(function (response) {
       console.log(response.data);
 
-      if (response.data.message == "error") {
-        message.value = "Email sau parola incorecta!";
-      } else {
-        clientStore.setClient(response.data.id);
-        clientStore.setClientName(response.data.name);
-        message.value = "Bun venit " + response.data.name + "!";
-      }
+      clientStore.setToken(response.data.success.token);
+      clientStore.setClient(response.data.id);
+      clientStore.setClientName(response.data.name);
+      message.value = "Bun venit " + response.data.name + "!";
     })
 
     .catch(function (error) {

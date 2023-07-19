@@ -52,7 +52,7 @@ function getImageUrl(image) {
       >
         <div class="col-12">
           <div class="info-item d-flex align-items-center">
-            <i class="icon bi bi-map flex-shrink-0"></i>
+            <i class="icon bi bi-bag-check-fill flex-shrink-0"></i>
             <div>
               <h3>Id comada: {{ order.id }}, adresa: {{ order.address }}</h3>
               <p class="text-secondary fw-bold">Pret: {{ order.price }} lei</p>
@@ -84,7 +84,7 @@ function getImageUrl(image) {
               <div
                 v-for="product in products"
                 :key="product.id"
-                class="d-flex flex-column mb-3 ms-3"
+                class="d-flex align-items-center flex-column border-bottom mb-3 me-4"
               >
                 <div><strong>Nume:</strong> {{ product.productName }}</div>
                 <img

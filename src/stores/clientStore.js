@@ -5,7 +5,8 @@ export const useClientStore = defineStore('clientStore', {
   state: () => {
     return {
       clientId: parseInt(Cookies.get('clientId') || 0),
-      clientName: Cookies.get('clientName') || ""
+      clientName: Cookies.get('clientName') || "",
+      clientToken: Cookies.get('userToken') || "",
     }
   },
   actions: {
@@ -20,6 +21,12 @@ export const useClientStore = defineStore('clientStore', {
       this.clientName = String(name)
 
       Cookies.set('clientName', this.clientName.toString())
+    },
+    setToken(token) {
+      //setarea tokenului clientului
+      this.clientToken = String(token)
+
+      Cookies.set('userToken', this.clientToken.toString())
     },
   }
 })

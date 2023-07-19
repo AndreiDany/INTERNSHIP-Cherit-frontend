@@ -26,26 +26,32 @@ const clientStore = useClientStore();
               ><span>Account</span><i class="bi bi-person fs-6 fst-normal"></i
             ></a>
             <ul>
-              <li v-if="clientStore.clientId == 0">
+              <li v-if="clientStore.clientToken == ''">
                 <RouterLink to="/login">Login</RouterLink>
               </li>
-              <li v-if="clientStore.clientId == 0">
+              <li v-if="clientStore.clientToken == ''">
                 <RouterLink to="/register">Register</RouterLink>
               </li>
-              <li v-if="clientStore.clientId != 0">
+              <li v-if="clientStore.clientToken != ''">
                 <p class="ms-3 mt-2">
                   {{ clientStore.clientName }}
                 </p>
               </li>
-              <li v-if="clientStore.clientId != 0">
-                <RouterLink @click="clientStore.setClient(0)" to="/"
+              <li v-if="clientStore.clientToken != ''">
+                <RouterLink
+                  @click="clientStore.setToken(''), clientStore.setClient(0)"
+                  to="/"
                   >Logout</RouterLink
                 >
               </li>
-              <li v-if="clientStore.clientId != 0">
-                <RouterLink to="/orderHistory"
-                  >Order History</RouterLink
-                >
+              <li v-if="clientStore.clientToken != ''">
+                <RouterLink to="/orderHistory">Order History</RouterLink>
+              </li>
+              <li v-if="clientStore.clientToken != ''">
+                <RouterLink to="/crudCategories">CRUD Categories</RouterLink>
+              </li>
+              <li v-if="clientStore.clientToken != ''">
+                <RouterLink to="/crudProducts">CRUD Products</RouterLink>
               </li>
             </ul>
           </li>
