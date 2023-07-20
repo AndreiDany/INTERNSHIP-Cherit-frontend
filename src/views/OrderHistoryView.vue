@@ -11,7 +11,11 @@ const products = ref([]);
 onMounted(() => {
   axios({
     method: "get",
-    url: "http://cherit3.test/orders/" + clientStore.clientId,
+    url: "http://cherit3.test/orders",
+    headers: {
+      Authorization: "Bearer " + clientStore.clientToken,
+      Accept: "application/json",
+    },
   }).then(response => {
     allOrders.value = response.data.slice();
   });
@@ -19,7 +23,12 @@ onMounted(() => {
 
 async function showProducts(orderId) {
   await axios
-    .get("http://cherit3.test/order/" + orderId)
+    .get("http://cherit3.test/order/" + orderId, {
+      headers: {
+        Authorization: "Bearer " + clientStore.clientToken,
+        Accept: "application/json",
+      },
+    })
     .then(function (response) {
       products.value = response.data.slice();
     })

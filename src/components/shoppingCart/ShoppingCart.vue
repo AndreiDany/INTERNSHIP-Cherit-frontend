@@ -33,13 +33,13 @@ const clientStore = useClientStore();
       </div>
       <div class="mb-3">
         <RouterLink
-          v-if="clientStore.clientId != 0"
+          v-if="clientStore.clientToken != ''"
           class="btn btn-outline-dark"
           to="/sendOrder"
           >Send order</RouterLink
         >
         <RouterLink
-          v-if="clientStore.clientId == 0"
+          v-if="clientStore.clientToken == ''"
           class="btn btn-outline-dark"
           to="/login"
           >Login</RouterLink
@@ -55,13 +55,13 @@ const clientStore = useClientStore();
       </div>
       <div>
         <RouterLink
-          v-if="clientStore.clientId != 0"
+          v-if="clientStore.clientToken != ''"
           class="btn btn-outline-dark"
           to="/sendOrder"
           >Send order</RouterLink
         >
         <RouterLink
-          v-if="clientStore.clientId == 0"
+          v-if="clientStore.clientToken == ''"
           class="btn btn-outline-dark"
           to="/login"
           >Login</RouterLink

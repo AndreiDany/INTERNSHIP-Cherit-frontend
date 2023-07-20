@@ -7,6 +7,7 @@ import { useProductsStore } from "../stores/productsStore.js";
 const clientStore = useClientStore();
 
 const productsStore = useProductsStore();
+const allCategory = ref([]);
 
 const productId = ref(0);
 const productName = ref("");
@@ -21,8 +22,23 @@ const message = ref("");
 
 onMounted(() => {
   axios
+    .get("http://cherit3.test/products", {
+      headers: {
+        Authorization: "Bearer " + clientStore.clientToken,
+        Accept: "application/json",
+      },
+    })
+    .then(function (response) {
+      productsStore.products = response.data.slice();
+    })
+    .catch(function (error) {
+      console.log(error);
+      message.value = "Eroare!";
+    });
+
+  axios
     .get(
-      "http://cherit3.test/products",
+      "http://cherit3.test/category",
       {},
       {
         headers: {
@@ -31,12 +47,8 @@ onMounted(() => {
         },
       }
     )
-    .then(function (response) {
-      productsStore.products = response.data.slice();
-    })
-    .catch(function (error) {
-      console.log(error);
-      message.value = "Eroare!";
+    .then(response => {
+      allCategory.value = response.data.slice();
     });
 });
 
@@ -82,6 +94,7 @@ function addProduct() {
 }
 
 function editProduct() {
+  console.log(newProductCategory.value);
   axios
     .post(
       "http://cherit3.test/product/" + productId.value,
@@ -119,12 +132,6 @@ function editProduct() {
       console.log(error);
       message.value = "Eroare!";
     });
-
-  newProductName.value = "";
-  newProductPrice.value = null;
-  newProductDescription.value = "";
-  newProductCategory.value = null;
-  newProductImage.value = "";
 }
 
 function deleteProduct() {
@@ -162,6 +169,13 @@ function deleteProduct() {
                 class="btn btn-success"
                 data-bs-toggle="modal"
                 data-bs-target="#addProduct"
+                @click="
+                  (newProductName = ''),
+                    (newProductPrice = null),
+                    (newProductDescription = ''),
+                    (newProductCategory = 1),
+                    (newProductImage = '')
+                "
               >
                 <i class="bi bi-plus-circle-fill"></i>
                 <span>Add New Product</span>
@@ -194,7 +208,13 @@ function deleteProduct() {
                   data-bs-toggle="modal"
                   data-bs-target="#editProduct"
                   @click="
-                    (productId = product.id), (productName = product.name)
+                    (productId = product.id),
+                      (productName = product.name),
+                      (newProductName = product.name),
+                      (newProductPrice = product.price),
+                      (newProductDescription = product.description),
+                      (newProductCategory = product.category_id),
+                      (newProductImage = product.image)
                   "
                 >
                   <i class="bi bi-pencil"></i>
@@ -262,14 +282,24 @@ function deleteProduct() {
               placeholder="Product description"
             />
             <br />
+
             <h5>Category</h5>
-            <input
+            <select
+              class="form-select"
+              aria-label="Default select example"
               v-model="newProductCategory"
-              type="text"
-              class="input-group-text"
-              placeholder="Product category"
-            />
+              style="width: 13rem"
+            >
+              <option
+                v-for="category in allCategory"
+                :key="category.id"
+                :value="category.id"
+              >
+                {{ category.id }} {{ category.name }}
+              </option>
+            </select>
             <br />
+
             <h5>Image</h5>
             <input
               v-model="newProductImage"
@@ -339,13 +369,23 @@ function deleteProduct() {
               placeholder="Product description"
             />
             <br />
+
             <h5>Category</h5>
-            <input
+            <select
+              class="form-select"
+              aria-label="Default select example"
               v-model="newProductCategory"
-              type="text"
-              class="input-group-text"
-              placeholder="Product category"
-            />
+              style="width: 13rem"
+            >
+              <option
+                v-for="category in allCategory"
+                :key="category.id"
+                :value="category.id"
+              >
+                {{ category.id }} {{ category.name }}
+              </option>
+            </select>
+
             <br />
             <h5>Image</h5>
             <input
@@ -382,7 +422,7 @@ function deleteProduct() {
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">
-              Esti sigur ca vrei sa stergi produsul {{ productName }}
+              Esti sigur ca vrei sa stergi produsul "{{ productName }}"
             </h1>
             <button
               type="button"

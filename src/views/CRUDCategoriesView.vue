@@ -15,16 +15,12 @@ const message = ref("");
 
 onMounted(() => {
   axios
-    .get(
-      "http://cherit3.test/category",
-      {},
-      {
-        headers: {
-          Authorization: "Bearer " + clientStore.clientToken,
-          Accept: "application/json",
-        },
-      }
-    )
+    .get("http://cherit3.test/category", {
+      headers: {
+        Authorization: "Bearer " + clientStore.clientToken,
+        Accept: "application/json",
+      },
+    })
     .then(function (response) {
       categoryStore.categories = response.data.slice();
     })
@@ -127,6 +123,7 @@ function deleteCategory() {
                 class="btn btn-success"
                 data-bs-toggle="modal"
                 data-bs-target="#addCategory"
+                @click="newCategoryName = ''"
               >
                 <i class="bi bi-plus-circle-fill"></i>
                 <span>Add New Category</span>
@@ -151,7 +148,9 @@ function deleteCategory() {
                   data-bs-toggle="modal"
                   data-bs-target="#editCategory"
                   @click="
-                    (categoryId = category.id), (categoryName = category.name)
+                    (categoryId = category.id),
+                      (categoryName = category.name),
+                      (newCategoryName = category.name)
                   "
                 >
                   <i class="bi bi-pencil"></i>
@@ -275,7 +274,7 @@ function deleteCategory() {
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">
-              Esti sigur ca vrei sa stergi categoria {{ categoryName }}
+              Esti sigur ca vrei sa stergi categoria "{{ categoryName }}""
             </h1>
             <button
               type="button"

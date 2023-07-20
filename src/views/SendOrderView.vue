@@ -11,20 +11,21 @@ const address = ref("");
 const message = ref("");
 
 async function sendOrder() {
-  // console.log({
-  //   clientId: clientStore.clientId,
-  //   address: address.value,
-  //   price: shoppingCartStore.total,
-  //   products: shoppingCartStore.shoppingCart
-  // })
-
   await axios
-    .post("http://cherit3.test/send-order", {
-      clientId: clientStore.clientId,
-      address: address.value,
-      price: shoppingCartStore.total,
-      products: shoppingCartStore.shoppingCart,
-    })
+    .post(
+      "http://cherit3.test/send-order",
+      {
+        address: address.value,
+        price: shoppingCartStore.total,
+        products: shoppingCartStore.shoppingCart,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + clientStore.clientToken,
+          Accept: "application/json",
+        },
+      }
+    )
     .then(function (response) {
       console.log(response);
       message.value = "Comanda a fost plasata cu succes!";

@@ -39,7 +39,9 @@ const clientStore = useClientStore();
               </li>
               <li v-if="clientStore.clientToken != ''">
                 <RouterLink
-                  @click="clientStore.setToken(''), clientStore.setClient(0)"
+                  @click="
+                    clientStore.setToken(''), clientStore.setAdmin('false')
+                  "
                   to="/"
                   >Logout</RouterLink
                 >
@@ -47,10 +49,10 @@ const clientStore = useClientStore();
               <li v-if="clientStore.clientToken != ''">
                 <RouterLink to="/orderHistory">Order History</RouterLink>
               </li>
-              <li v-if="clientStore.clientToken != ''">
+              <li v-if="clientStore.isAdmin == 'true'">
                 <RouterLink to="/crudCategories">CRUD Categories</RouterLink>
               </li>
-              <li v-if="clientStore.clientToken != ''">
+              <li v-if="clientStore.isAdmin == 'true'">
                 <RouterLink to="/crudProducts">CRUD Products</RouterLink>
               </li>
             </ul>
