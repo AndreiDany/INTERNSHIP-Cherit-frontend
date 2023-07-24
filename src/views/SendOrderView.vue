@@ -29,8 +29,8 @@ async function sendOrder() {
     .then(function (response) {
       console.log(response);
       message.value = "Comanda a fost plasata cu succes!";
-      shoppingCartStore.shoppingCart = [];
-      shoppingCartStore.total = 0;
+      shoppingCartStore.setShoppingCart([]);
+      shoppingCartStore.setTotal(0);
     })
     .catch(function (error) {
       console.log(error);

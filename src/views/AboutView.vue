@@ -20,7 +20,7 @@
         >
           <div class="call-us position-absolute">
             <h4>Book a Table</h4>
-            <p>074012345678</p>
+            <p>0740123456</p>
           </div>
         </div>
         <div

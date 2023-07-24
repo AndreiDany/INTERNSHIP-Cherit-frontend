@@ -54,6 +54,11 @@ const router = createRouter({
       name: "crudProducts",
       component: () => import("../views/CRUDProductsView.vue"),
     },
+    {
+      path: "/crudUsers",
+      name: "crudUsers",
+      component: () => import("../views/CRUDUsersView.vue"),
+    },
   ],
 });
 

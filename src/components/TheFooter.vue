@@ -7,10 +7,7 @@
           <i class="bi bi-geo-alt icon"></i>
           <div>
             <h4>Address</h4>
-            <p>
-              A108 Adam Street <br />
-              New York, NY 535022 - US<br />
-            </p>
+            <p>... <br /></p>
           </div>
         </div>
 
@@ -19,7 +16,7 @@
           <div>
             <h4>Reservations</h4>
             <p>
-              <strong>Phone:</strong> +1 5589 55488 55<br />
+              <strong>Phone:</strong> ...<br />
               <strong>Email:</strong> info@example.com<br />
             </p>
           </div>
@@ -30,8 +27,8 @@
           <div>
             <h4>Opening Hours</h4>
             <p>
-              <strong>Mon-Sat: 8AM</strong> - 23PM<br />
-              Sunday: Closed
+              <strong>Mon-Sat: </strong> 8AM - 23PM <br />
+              <strong>Sunday:</strong> Closed
             </p>
           </div>
         </div>

@@ -23,7 +23,7 @@
             <i class="icon bi bi-map flex-shrink-0"></i>
             <div>
               <h3>Our Address</h3>
-              <p>A108 Adam Street, New York, NY 535022</p>
+              <p>...</p>
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@
             <i class="icon bi bi-telephone flex-shrink-0"></i>
             <div>
               <h3>Call Us</h3>
-              <p>074012345678</p>
+              <p>0740123456</p>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@
         <!-- End Info Item -->
       </div>
 
-      <form
+      <div
         action="forms/contact.php"
         method="post"
         role="form"
@@ -121,7 +121,7 @@
         <div class="text-center">
           <button type="submit">Send Message</button>
         </div>
-      </form>
+      </div >
       <!--End Contact Form -->
     </div>
   </section>

@@ -35,7 +35,7 @@ function addProduct() {
 
 <template>
   <div class="col-lg-4 menu-item">
-    <a href="assets/img/menu/menu-item-1.png" class="glightbox"
+    <a href="#" class="glightbox"
       ><img
         :src="getImageUrl(image)"
         class="img-fluid rounded border border-grey border-3"

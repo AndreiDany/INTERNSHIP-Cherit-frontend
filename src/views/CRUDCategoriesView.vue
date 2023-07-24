@@ -274,7 +274,7 @@ function deleteCategory() {
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">
-              Esti sigur ca vrei sa stergi categoria "{{ categoryName }}""
+              Esti sigur ca vrei sa stergi categoria "{{ categoryName }}"
             </h1>
             <button
               type="button"

@@ -7,7 +7,7 @@ import axios from "axios";
 
 const allCategory = ref([]);
 const categoryId = ref(1);
-const categoryName = ref("pizza");
+const categoryName = ref("");
 
 onMounted(() => {
   axios({
@@ -15,6 +15,7 @@ onMounted(() => {
     url: "http://cherit3.test/category",
   }).then(response => {
     allCategory.value = response.data.slice();
+    categoryName.value = allCategory.value[0].name;
   });
 });
 

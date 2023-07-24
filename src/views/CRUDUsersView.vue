@@ -2,66 +2,48 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useClientStore } from "../stores/clientStore.js";
-import { useProductsStore } from "../stores/productsStore.js";
+import { useUsersStore } from "../stores/usersStore.js";
 
 const clientStore = useClientStore();
 
-const productsStore = useProductsStore();
-const allCategory = ref([]);
+const usersStore = useUsersStore();
 
-const productId = ref(0);
-const productName = ref("");
+const userId = ref(0);
+const userName = ref("");
 
-const newProductName = ref("");
-const newProductPrice = ref();
-const newProductDescription = ref("");
-const newProductCategory = ref();
-const newProductImage = ref("");
+const newUserName = ref("");
+const newUserEmail = ref("");
+const newUserPassword = ref("");
+const newUserCPassword = ref("");
 
 const message = ref("");
 
 onMounted(() => {
   axios
-    .get("http://cherit3.test/products", {
+    .get("http://cherit3.test/users", {
       headers: {
         Authorization: "Bearer " + clientStore.clientToken,
         Accept: "application/json",
       },
     })
     .then(function (response) {
-      productsStore.products = response.data.slice();
+      usersStore.users = response.data.slice();
     })
     .catch(function (error) {
       console.log(error);
       message.value = "Eroare!";
     });
-
-  axios
-    .get(
-      "http://cherit3.test/category",
-      {},
-      {
-        headers: {
-          Authorization: "Bearer " + clientStore.clientToken,
-          Accept: "application/json",
-        },
-      }
-    )
-    .then(response => {
-      allCategory.value = response.data.slice();
-    });
 });
 
-function addProduct() {
+function addUser() {
   axios
     .post(
-      "http://cherit3.test/product",
+      "http://cherit3.test/register",
       {
-        name: newProductName.value,
-        price: newProductPrice.value,
-        description: newProductDescription.value,
-        category_id: newProductCategory.value,
-        image: newProductImage.value,
+        name: newUserName.value,
+        email: newUserEmail.value,
+        password: newUserPassword.value,
+        c_password: newUserCPassword.value,
       },
       {
         headers: {
@@ -71,13 +53,9 @@ function addProduct() {
       }
     )
     .then(function (response) {
-      productsStore.products.push({
-        id: response.data.id,
-        name: response.data.name,
-        price: response.data.price,
-        description: response.data.description,
-        category_id: response.data.category_id,
-        image: response.data.image,
+      usersStore.users.push({
+        name: newUserName.value,
+        email: newUserEmail.value,
       });
       message.value = response.data;
     })
@@ -86,24 +64,17 @@ function addProduct() {
       message.value = "Eroare!";
     });
 
-  newProductName.value = "";
-  newProductPrice.value = null;
-  newProductDescription.value = "";
-  newProductCategory.value = null;
-  newProductImage.value = "";
+  //newUserName.value = "";
+  //newUserEmail.value = "";
 }
 
-function editProduct() {
-  console.log(newProductCategory.value);
+function editUser() {
   axios
     .post(
-      "http://cherit3.test/product/" + productId.value,
+      "http://cherit3.test/user/" + userId.value,
       {
-        name: newProductName.value,
-        price: newProductPrice.value,
-        description: newProductDescription.value,
-        category_id: newProductCategory.value,
-        image: newProductImage.value,
+        name: newUserName.value,
+        email: newUserEmail.value,
       },
       {
         headers: {
@@ -113,18 +84,12 @@ function editProduct() {
       }
     )
     .then(function (response) {
-      const productIndex = productsStore.products.findIndex(
-        product => product.id == productId.value
+      const productIndex = usersStore.users.findIndex(
+        user => user.id == userId.value
       );
       if (productIndex !== -1) {
-        //console.log( productsStore.products[productIndex]);
-        productsStore.products[productIndex].name = newProductName.value;
-        productsStore.products[productIndex].price = newProductPrice.value;
-        productsStore.products[productIndex].description =
-          newProductDescription.value;
-        productsStore.products[productIndex].category_id =
-          newProductCategory.value;
-        productsStore.products[productIndex].image = newProductImage.value;
+        usersStore.users[productIndex].name = newUserName.value;
+        usersStore.users[productIndex].email = newUserEmail.value;
       }
       message.value = response.data;
     })
@@ -134,19 +99,40 @@ function editProduct() {
     });
 }
 
-function deleteProduct() {
+function deleteUser() {
   axios
-    .delete("http://cherit3.test/product/" + productId.value, {
+    .delete("http://cherit3.test/user/" + userId.value, {
       headers: {
         Authorization: "Bearer " + clientStore.clientToken,
         Accept: "application/json",
       },
     })
     .then(function (response) {
-      productsStore.products.splice(
-        productsStore.products.findIndex(item => item.id == productId.value),
+      usersStore.users.splice(
+        usersStore.users.findIndex(item => item.id == userId.value),
         1
       );
+      message.value = response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+      message.value = "Eroare!";
+    });
+}
+
+function makeAdmin() {
+  axios
+    .post(
+      "http://cherit3.test/admin/" + userId.value,
+      {},
+      {
+        headers: {
+          Authorization: "Bearer " + clientStore.clientToken,
+          Accept: "application/json",
+        },
+      }
+    )
+    .then(function (response) {
       message.value = response.data;
     })
     .catch(function (error) {
@@ -162,23 +148,22 @@ function deleteProduct() {
         <div class="table-title">
           <div class="row">
             <div class="col-sm-6">
-              <h2>CRUD <b>Products</b></h2>
+              <h2>CRUD <b>Users</b></h2>
             </div>
             <div class="col-sm-6">
               <button
                 class="btn btn-success"
                 data-bs-toggle="modal"
-                data-bs-target="#addProduct"
+                data-bs-target="#addUser"
                 @click="
-                  (newProductName = ''),
-                    (newProductPrice = null),
-                    (newProductDescription = ''),
-                    (newProductCategory = 1),
-                    (newProductImage = '')
+                  (newUserName = ''),
+                    (newUserEmail = ''),
+                    (newUserPassword = ''),
+                    (newUserCPassword = '')
                 "
               >
                 <i class="bi bi-plus-circle-fill"></i>
-                <span>Add New Product</span>
+                <span>Add New User</span>
               </button>
             </div>
           </div>
@@ -188,46 +173,45 @@ function deleteProduct() {
             <tr>
               <th>Id</th>
               <th>Name</th>
-              <th>Price</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Image</th>
+              <th>Email</th>
+              <th>Role</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="product in productsStore.products" :key="product.id">
-              <td>{{ product.id }}</td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.price }}</td>
-              <td style="width: 16rem">{{ product.description }}</td>
-              <td>{{ product.category_id }}</td>
-              <td>{{ product.image }}</td>
+            <tr v-for="user in usersStore.users" :key="user.id">
+              <td>{{ user.id }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.role }}</td>
               <td>
                 <button
                   class="btn btn-outline-dark me-2"
                   data-bs-toggle="modal"
-                  data-bs-target="#editProduct"
+                  data-bs-target="#editUser"
                   @click="
-                    (productId = product.id),
-                      (productName = product.name),
-                      (newProductName = product.name),
-                      (newProductPrice = product.price),
-                      (newProductDescription = product.description),
-                      (newProductCategory = product.category_id),
-                      (newProductImage = product.image)
+                    (userId = user.id),
+                      (userName = user.name),
+                      (newUserName = user.name),
+                      (newUserEmail = user.email)
                   "
                 >
                   <i class="bi bi-pencil"></i>
                 </button>
                 <button
-                  class="btn btn-outline-dark"
+                  class="btn btn-outline-dark me-2"
                   data-bs-toggle="modal"
-                  data-bs-target="#deleteProduct"
-                  @click="
-                    (productId = product.id), (productName = product.name)
-                  "
+                  data-bs-target="#deleteUser"
+                  @click="(userId = user.id), (userName = user.name)"
                 >
                   <i class="bi bi-trash"></i>
+                </button>
+                <button
+                  class="btn btn-outline-dark"
+                  data-bs-toggle="modal"
+                  data-bs-target="#makeAdmin"
+                  @click="(userId = user.id), (userName = user.name)"
+                >
+                  <i class="bi bi-person-lock"></i>
                 </button>
               </td>
             </tr>
@@ -236,10 +220,78 @@ function deleteProduct() {
       </div>
     </div>
 
-    <!-- Modal Add Product -->
+    <!-- Modal Add User -->
     <div
       class="modal fade"
-      id="addProduct"
+      id="addUser"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add a user</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h5>Name</h5>
+            <input
+              v-model="newUserName"
+              type="text"
+              class="input-group-text"
+              placeholder="User name"
+            />
+            <br />
+            <h5>Email</h5>
+            <input
+              v-model="newUserEmail"
+              type="text"
+              class="input-group-text"
+              placeholder="User email"
+            />
+            <br />
+            <h5>Password</h5>
+            <input
+              v-model="newUserPassword"
+              type="text"
+              class="input-group-text"
+              placeholder="User password"
+            />
+            <br />
+
+            <h5>cPassword</h5>
+            <input
+              v-model="newUserCPassword"
+              type="text"
+              class="input-group-text"
+              placeholder="User cPassword"
+            />
+            <br />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+              @click="addUser()"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Edit User -->
+    <div
+      class="modal fade"
+      id="editUser"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -248,7 +300,7 @@ function deleteProduct() {
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">
-              Add a product
+              {{ userName }}
             </h1>
             <button
               type="button"
@@ -260,52 +312,18 @@ function deleteProduct() {
           <div class="modal-body">
             <h5>Name</h5>
             <input
-              v-model="newProductName"
+              v-model="newUserName"
               type="text"
               class="input-group-text"
-              placeholder="Product name"
+              placeholder="User name"
             />
             <br />
-            <h5>Price</h5>
+            <h5>Email</h5>
             <input
-              v-model="newProductPrice"
+              v-model="newUserEmail"
               type="text"
               class="input-group-text"
-              placeholder="Product price"
-            />
-            <br />
-            <h5>Description</h5>
-            <input
-              v-model="newProductDescription"
-              type="text"
-              class="input-group-text"
-              placeholder="Product description"
-            />
-            <br />
-
-            <h5>Category</h5>
-            <select
-              class="form-select"
-              aria-label="Default select example"
-              v-model="newProductCategory"
-              style="width: 13rem"
-            >
-              <option
-                v-for="category in allCategory"
-                :key="category.id"
-                :value="category.id"
-              >
-                {{ category.id }} {{ category.name }}
-              </option>
-            </select>
-            <br />
-
-            <h5>Image</h5>
-            <input
-              v-model="newProductImage"
-              type="text"
-              class="input-group-text"
-              placeholder="Product image"
+              placeholder="User email"
             />
             <br />
           </div>
@@ -314,7 +332,7 @@ function deleteProduct() {
               type="button"
               class="btn btn-danger"
               data-bs-dismiss="modal"
-              @click="addProduct()"
+              @click="editUser()"
             >
               Ok
             </button>
@@ -323,10 +341,10 @@ function deleteProduct() {
       </div>
     </div>
 
-    <!-- Modal Edit Product -->
+    <!-- Modal Delete User -->
     <div
       class="modal fade"
-      id="editProduct"
+      id="deleteUser"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -335,94 +353,7 @@ function deleteProduct() {
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">
-              {{ productName }}
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <h5>Name</h5>
-            <input
-              v-model="newProductName"
-              type="text"
-              class="input-group-text"
-              placeholder="Product name"
-            />
-            <br />
-            <h5>Price</h5>
-            <input
-              v-model="newProductPrice"
-              type="text"
-              class="input-group-text"
-              placeholder="Product price"
-            />
-            <br />
-            <h5>Description</h5>
-            <input
-              v-model="newProductDescription"
-              type="text"
-              class="input-group-text"
-              placeholder="Product description"
-            />
-            <br />
-
-            <h5>Category</h5>
-            <select
-              class="form-select"
-              aria-label="Default select example"
-              v-model="newProductCategory"
-              style="width: 13rem"
-            >
-              <option
-                v-for="category in allCategory"
-                :key="category.id"
-                :value="category.id"
-              >
-                {{ category.id }} {{ category.name }}
-              </option>
-            </select>
-
-            <br />
-            <h5>Image</h5>
-            <input
-              v-model="newProductImage"
-              type="text"
-              class="input-group-text"
-              placeholder="Product image"
-            />
-            <br />
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-danger"
-              data-bs-dismiss="modal"
-              @click="editProduct()"
-            >
-              Ok
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal Delete Product -->
-    <div
-      class="modal fade"
-      id="deleteProduct"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">
-              Esti sigur ca vrei sa stergi produsul "{{ productName }}"
+              Esti sigur ca vrei sa stergi clientul "{{ userName }}"
             </h1>
             <button
               type="button"
@@ -436,7 +367,42 @@ function deleteProduct() {
               type="button"
               class="btn btn-danger"
               data-bs-dismiss="modal"
-              @click="deleteProduct()"
+              @click="deleteUser()"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Make Admin -->
+    <div
+      class="modal fade"
+      id="makeAdmin"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Esti sigur ca vrei sa numesti admin pe "{{ userName }}"
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+              @click="makeAdmin()"
             >
               Ok
             </button>

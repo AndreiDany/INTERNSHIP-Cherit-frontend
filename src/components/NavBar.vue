@@ -55,6 +55,9 @@ const clientStore = useClientStore();
               <li v-if="clientStore.isAdmin == 'true'">
                 <RouterLink to="/crudProducts">CRUD Products</RouterLink>
               </li>
+              <li v-if="clientStore.isAdmin == 'true'">
+                <RouterLink to="/crudUsers">CRUD Users</RouterLink>
+              </li>
             </ul>
           </li>
         </ul>
